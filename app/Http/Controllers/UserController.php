@@ -30,7 +30,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::pluck('name', 'name')->all;
+        $roles = Role::pluck('name', 'name')->all();
         return view('users.create', compact('roles'));
     }
 
@@ -100,7 +100,7 @@ class UserController extends Controller
         //1. validate
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'required|same:confirm-password',
             'roles' => 'required'
         ]);
@@ -113,14 +113,13 @@ class UserController extends Controller
             $input = Arr::except($input, array('password'));
         }
         
-
-        $user = User::find($input);
+        $user = User::find($id);
         $user->update($input);
         DB::table('model_has_roles')->where('model_id', $id)->delete();
 
         $user->assignRole($request->input('roles')); //added this
 
-        return redirect()->route('users.index')->with('success', 'User Created Successfully');
+        return redirect()->route('users.index')->with('success', 'User Updated Successfully');
     }
 
     /**

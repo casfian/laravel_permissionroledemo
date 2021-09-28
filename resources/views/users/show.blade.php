@@ -25,7 +25,14 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Role: </strong> -- role--
+            <strong>Role: </strong> 
+            
+            @if (!empty($user->getRoleNames()))
+                @foreach ($user->getRoleNames() as $role)
+                    <label class="badge badge-success">{{ $role }}</label>
+                @endforeach
+                
+            @endif
         </div>
     </div>
 </div>

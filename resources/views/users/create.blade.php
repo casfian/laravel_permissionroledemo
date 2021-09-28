@@ -4,7 +4,7 @@
 <div class='row'>
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2>Edit User</h2>
+            <h2>Create User</h2>
         </div>
         <div class="pull-right">
             <a class="btn btn-success" href="{{ route('users.index') }}"> Back</a>
@@ -23,7 +23,7 @@
     </div>
 @endif
 
-{!! Form::model($user, ['method' => 'PATCH', 'route' => ['users.update', $user->id]]) !!}
+{!! Form::open( array('method' => 'POST', 'route' => 'users.store') ) !!}
 
 <div class="col-xs-12 col-sm-12 col-md-12">
     <div class="form-group">
@@ -56,7 +56,7 @@
 <div class="col-xs-12 col-sm-12 col-md-12">
     <div class="form-group">
         <strong>Role: </strong>
-        {!! Form::select('roles[]', $roles, $userRole, array('class' => 'form-control', 'multiple')) !!}
+        {!! Form::select('roles[]', $roles, [], array('class' => 'form-control', 'multiple')) !!}
     </div>
 </div>
 
@@ -65,5 +65,6 @@
 </div>
 
 {!!  Form::close() !!}
+
 
 @endsection
